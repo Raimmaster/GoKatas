@@ -12,7 +12,7 @@ func Add(numbers string) int {
   }
 
   num, err := strconv.Atoi(numbers)
-  if err != nil {
+  if err == nil {
     if num >= 0 {
       return num
     }

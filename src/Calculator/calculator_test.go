@@ -20,3 +20,12 @@ func TestAddOneNumber(t *testing.T){
     t.Fatalf("Received %d, expected %d \n", num, expectedValue)
   }
 }
+
+func TestAddTwoNumbers(t *testing.T){
+	var num int = Add("10,25")
+	expectedValue := 35
+
+	if num != expectedValue {
+    	t.Fatalf("Received %d, expected %d \n", num, expectedValue)
+  	}
+}

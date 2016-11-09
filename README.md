@@ -1,0 +1,2 @@
+# GoKatas
+TDD with Go

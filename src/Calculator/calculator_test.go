@@ -45,7 +45,7 @@ func TestSupportingDifferentDelimiters(t *testing.T){
 
   if num != expectedValue {
       t.Fatalf("Received %d, expected %d \n", num, expectedValue)
-	}
+  }
 }
 
 func TestForNotHavingNegativeNumbers(t *testing.T){
@@ -57,9 +57,18 @@ func TestForNotHavingNegativeNumbers(t *testing.T){
 }
 
 func TestNumbersLowerThanThousand(t *testing.T){
-	num, _ := Add("1000,55")
+  num, _ := Add("1000,55")
   expectedValue := 55
   if num != expectedValue {
     t.Fatalf("Received %d, expected %d \n", num, expectedValue)
+  }
+}
+
+func TestMultipleLengthDelimiter(t *testing.T){
+  num, _ := Add("//[***]\n10***25***30***55***66")
+  expectedValue := 186
+
+  if num != expectedValue {
+      t.Fatalf("Received %d, expected %d \n", num, expectedValue)
   }
 }

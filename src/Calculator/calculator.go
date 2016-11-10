@@ -4,7 +4,7 @@ import (
   "strings"
   "strconv"
   "errors"
-  //"fmt"
+ // "fmt"
 )
 var delimiters []rune = []rune{',', '\n'}
 
@@ -24,9 +24,16 @@ func Add(numbers string) (int, error) {
 	var delimiter string
 	var isSetDelimiter bool
 	if(strings.ContainsAny(numbers, "//")){
-		delimiter = numbers[2:3]
-		numbers = numbers[4:len(numbers)]
-		isSetDelimiter = true
+    if(strings.ContainsAny(numbers, "[ & ]")){
+      indexOfNewline := strings.Index(numbers, "\n")
+      //lengthOfDelimiter := indexOfNewline - 4;
+      delimiter = numbers[3:indexOfNewline-1]
+      numbers = numbers[(indexOfNewline+1):len(numbers)]
+    }else{
+      delimiter = numbers[2:3]
+      numbers = numbers[4:len(numbers)]
+    }
+    isSetDelimiter = true
 	}
 
 	var adders []string

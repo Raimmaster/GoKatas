@@ -4,7 +4,7 @@ import (
   "strings"
   "strconv"
   "errors"
-  "fmt"
+  //"fmt"
 )
 var delimiters []rune = []rune{',', '\n'}
 
@@ -33,9 +33,9 @@ func Add(numbers string) (int, error) {
 	if(!isSetDelimiter){
 		for _, val := range delimiters {
 			negativeSubstring := string(val) + "-"
-			fmt.Printf("Sub: %s\n", negativeSubstring)
+			//fmt.Printf("Sub: %s\n", negativeSubstring)
 			if(strings.Contains(numbers, negativeSubstring)){
-				return -1, errors.New("Contains a negative value!")
+				return -1, errors.New("Contains a negative value!" + negativeSubstring)
 			}
 		}
   	adders = strings.FieldsFunc(numbers, Split)
@@ -48,7 +48,9 @@ func Add(numbers string) (int, error) {
   for _, value := range adders {
     val, erro := strconv.Atoi(value)
       if erro == nil{
-        num += val        
+      	if(val < 1000){
+        	num += val        
+      	}
       }
   }
 

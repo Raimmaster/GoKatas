@@ -49,13 +49,17 @@ func TestSupportingDifferentDelimiters(t *testing.T){
 }
 
 func TestForNotHavingNegativeNumbers(t *testing.T){
-	num, err := Add("10,25,-30,55,66")
-  expectedValue := 186
+	_, err := Add("10,25,30,55,66")
+  
   if err != nil{
   	t.Fatalf(err.Error())
   }
+}
 
+func TestNumbersLowerThanThousand(t *testing.T){
+	num, _ := Add("1000,55")
+  expectedValue := 55
   if num != expectedValue {
-      t.Fatalf("Received %d, expected %d \n", num, expectedValue)
-	}	
+    t.Fatalf("Received %d, expected %d \n", num, expectedValue)
+  }
 }

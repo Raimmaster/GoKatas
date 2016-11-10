@@ -3,24 +3,27 @@ package Calculator
 import (
   "strings"
   "strconv"
+  "errors"
   "fmt"
 )
+var delimiters []rune = []rune{',', '\n'}
 
-func Add(numbers string) int {
+func Add(numbers string) (int, error) {
+	//delimiters 
   if strings.Compare(numbers, "") == 0 {
-    return 0
+    return 0, nil
   }
 
   num, err := strconv.Atoi(numbers)
   if err == nil {
     if num >= 0 {
-      return num
+      return num, nil
     }
   }
+
 	var delimiter string
 	var isSetDelimiter bool
 	if(strings.ContainsAny(numbers, "//")){
-		fmt.Println("It contains it!")
 		delimiter = numbers[2:3]
 		numbers = numbers[4:len(numbers)]
 		isSetDelimiter = true
@@ -28,6 +31,13 @@ func Add(numbers string) int {
 
 	var adders []string
 	if(!isSetDelimiter){
+		for _, val := range delimiters {
+			negativeSubstring := string(val) + "-"
+			fmt.Printf("Sub: %s\n", negativeSubstring)
+			if(strings.Contains(numbers, negativeSubstring)){
+				return -1, errors.New("Contains a negative value!")
+			}
+		}
   	adders = strings.FieldsFunc(numbers, Split)
 	}else {
 		adders = strings.Split(numbers, delimiter)
@@ -42,9 +52,17 @@ func Add(numbers string) int {
       }
   }
 
-  return num
+  return num, nil
 }
 
 func Split(r rune) bool {
-	return r == ',' || r == '\n'
+	isDelimiter := false
+	for _, value := range delimiters {
+		if(r == value){
+			isDelimiter = true
+			break
+		}
+	}
+
+	return isDelimiter
 }

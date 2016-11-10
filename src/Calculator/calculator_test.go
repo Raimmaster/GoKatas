@@ -27,7 +27,7 @@ func TestAddTwoNumbers(t *testing.T){
 
   if num != expectedValue {
       t.Fatalf("Received %d, expected %d \n", num, expectedValue)
-    }
+  }
 }
 
 func TestUnknownAmountOfNumbers(t *testing.T){
@@ -36,5 +36,23 @@ func TestUnknownAmountOfNumbers(t *testing.T){
 
   if num != expectedValue {
       t.Fatalf("Received %d, expected %d \n", num, expectedValue)
-    }
+	}
+}
+
+func TestSupportingDifferentDelimiters(t *testing.T){
+	var num int = Add("//-\n10-25-30-55-66")
+  expectedValue := 186
+
+  if num != expectedValue {
+      t.Fatalf("Received %d, expected %d \n", num, expectedValue)
+	}
+}
+
+func TestForNotHavingNegativeNumbers(t *testing.T){
+	var num int = Add("10,25,30,55,66")
+  expectedValue := 186
+
+  if num != expectedValue {
+      t.Fatalf("Received %d, expected %d \n", num, expectedValue)
+	}	
 }

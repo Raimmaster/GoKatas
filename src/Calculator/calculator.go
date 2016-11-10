@@ -3,6 +3,7 @@ package Calculator
 import (
   "strings"
   "strconv"
+  "fmt"
 )
 
 func Add(numbers string) int {
@@ -16,8 +17,21 @@ func Add(numbers string) int {
       return num
     }
   }
-  
-  adders := strings.Split(numbers, "\n")
+	var delimiter string
+	var isSetDelimiter bool
+	if(strings.ContainsAny(numbers, "//")){
+		fmt.Println("It contains it!")
+		delimiter = numbers[2:3]
+		numbers = numbers[4:len(numbers)]
+		isSetDelimiter = true
+	}
+
+	var adders []string
+	if(!isSetDelimiter){
+  	adders = strings.FieldsFunc(numbers, Split)
+	}else {
+		adders = strings.Split(numbers, delimiter)
+	}
   
   num = 0
 
@@ -29,4 +43,8 @@ func Add(numbers string) int {
   }
 
   return num
+}
+
+func Split(r rune) bool {
+	return r == ',' || r == '\n'
 }

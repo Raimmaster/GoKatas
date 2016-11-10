@@ -6,7 +6,6 @@ import (
 )
 
 func Add(numbers string) int {
-  // adders := strings.Split(numbers, ",")
   if strings.Compare(numbers, "") == 0 {
     return 0
   }
@@ -17,6 +16,17 @@ func Add(numbers string) int {
       return num
     }
   }
+  
+  adders := strings.Split(numbers, "\n")
+  
+  num = 0
 
-  return 0
+  for _, value := range adders {
+    val, erro := strconv.Atoi(value)
+      if erro == nil{
+        num += val        
+      }
+  }
+
+  return num
 }
